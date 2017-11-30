@@ -14,5 +14,6 @@ public class Main {
             RTPLParser.ProgramContext program_ctx;
             program_ctx = parser.program();
         } catch (Exception e) {e.printStackTrace();}
+        GUI g = new GUI();
     }
 }
