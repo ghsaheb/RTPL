@@ -1,0 +1,13 @@
+int main(int a, int b, int c, boolean d, string(3) s, float f){
+    int a;
+    int c;
+}
+float second(){
+
+}
+
+boolean asghar(boolean akbar, float d){
+    int davood;
+    float kheng = 33.33;
+    string(2) str = "AVBB";
+}
