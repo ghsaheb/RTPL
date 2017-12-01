@@ -54,70 +54,71 @@ if_stm_else
     : ('if' '(' expr ')' if_stm_else 'else' if_stm_else
     | other_stm)
     ;
-expr returns [Type retType]
+expr
     : expr_assign
     ;
-expr_assign returns [Type retType]
+expr_assign
     : expr_or '=' expr_assign
     | expr_or
     ;
-expr_or returns [Type retType]
+expr_or
     : expr_and expr_or_tmp
     ;
 expr_or_tmp
     : '||' expr_and expr_or_tmp
     |
     ;
-expr_and returns [Type retType]
+expr_and
     : expr_eq expr_and_tmp
     ;
 expr_and_tmp
     : '&&' expr_eq expr_and_tmp
     |
     ;
-expr_eq returns [Type retType]
+expr_eq
     : expr_cmp expr_eq_tmp
     ;
 expr_eq_tmp
     : op=('=='|'!=') expr_cmp expr_eq_tmp
     |
     ;
-expr_cmp returns [Type retType]
+expr_cmp
     : expr_add expr_cmp_tmp
     ;
 expr_cmp_tmp
     : op=('<'|'>') expr_add expr_cmp_tmp
     |
     ;
-expr_add returns [Type retType]
+expr_add
     : expr_mult expr_add_tmp
     ;
 expr_add_tmp
     : op=('+'|'-') expr_mult expr_add_tmp
     |
     ;
-expr_mult returns [Type retType]
+expr_mult
     : expr_un expr_mult_tmp
     ;
 expr_mult_tmp
     : op=('*'|'/') expr_un expr_mult_tmp
     |
     ;
-expr_un returns [Type retType]
+expr_un
     : op=('!'|'-') expr_un
     | expr_func
     ;
-expr_func returns [Type retType]
+expr_func
     : expr_other expr_func_tmp
     ;
 expr_func_tmp
     : ('(' (expr (',' expr)*)? ')')
     |
     ;
-expr_other returns [Type retType]
+expr_other
     : (CONST_NUM
     | CONST_STR
     | ID
+    | CONST_FUNC
     | '(' expr ')')
     ;
 while_stm
@@ -133,19 +134,12 @@ break_stm
 CONST_NUM:
     [0-9]+ ('.' [0-9]+)?
     ;
-/*
-CONST_CHAR:
-    '\'' . '\''
-    ;
-*/
 CONST_STR:
     '"' ~('\r' | '\n' | '"')* '"'
     ;
-/*
 CONST_FUNC:
-    'tail' | 'head' | 'size' | 'read' | 'write'
+    'sysin' | 'sysout'
     ;
-*/
 ID:
     [a-zA-Z_][a-zA-Z0-9_]*
     ;
