@@ -119,6 +119,7 @@ expr_other
     | CONST_STR
     | ID
     | CONST_FUNC
+    | CONST_BOOL
     | '(' expr ')')
     ;
 while_stm
@@ -139,6 +140,9 @@ CONST_STR:
     ;
 CONST_FUNC:
     'sysin' | 'sysout'
+    ;
+CONST_BOOL:
+    'true' | 'false'
     ;
 ID:
     [a-zA-Z_][a-zA-Z0-9_]*
