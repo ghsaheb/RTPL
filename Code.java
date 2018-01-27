@@ -7,7 +7,14 @@ int pow(int x, int y){
 public static void run(){
 	int x;
 	System.out.println(10);
-	System.out.println(q);
-boolean rv = false;
+boolean rv = true;
+long safetyTimer = System.currentTimeMillis();
+    while (true){
+if (System.currentTimeMillis() + 100 > safetyTimer){System.out.println("Safety time reached"); break;} 
+        int ghazal;
+        ghazal = 20;
+        System.out.println("ghazaaaal");
+    }
 }
+
 }

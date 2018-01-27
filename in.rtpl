@@ -5,8 +5,14 @@ int pow(int x, int y){
 void main(){
 	int x;
 	sysout(10);
-	sysout(q);
 	preal p;
 	                p = 0.3;
 	boolean rv : p true $ 1-p false;
+    @safety = 100;
+    while (true){
+        int ghazal;
+        ghazal = 20;
+        sysout("ghazaaaal");
+    }
 }
+

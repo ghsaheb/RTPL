@@ -11,7 +11,6 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 
-
 public class Main {
     public static void main(String[] args) throws Exception{
         //    new GUI();
@@ -23,6 +22,8 @@ public class Main {
         String str;
         out.write("import java.util.*;\npublic class Code  {\n");
         boolean hasCode = false;
+        int timeInMillis = 0;
+        boolean safetyFlag = false;
         while ((str = in.readLine()) != null){
             Probability x;
             String delims = "[ ={}\n\t,;\r]+";
@@ -67,7 +68,23 @@ public class Main {
                     variables.put(tokens[1], variable_value.eval());
                     //System.out.println(tokens[1]+"="+((BigDecimal)variables.get(tokens[1])).doubleValue());
                     continue;
+                }if(str.contains("@estimation")){
+                    System.out.println("\t" + "Annotation: " + tokens[1]);
+                    continue;
                 }
+                if(str.contains("@safety")){
+                    System.out.println("\t" + "Annotation: " + tokens[2]);
+                    safetyFlag = true;
+                    timeInMillis = Integer.parseInt(tokens[2]);
+                    continue;
+                }
+            }
+            else if (str.contains("while") && safetyFlag){
+                safetyFlag = false;
+                out.write("\nlong safetyTimer = System.currentTimeMillis();");
+                out.write("\n" + str);
+                out.write("\nif (System.currentTimeMillis() + " + timeInMillis + " > safetyTimer){System.out.println(\"Safety time reached\"); break;} ");
+                continue;
             }
             str=str.replace("string","String");
             str=str.replace("float","double");
@@ -80,24 +97,27 @@ public class Main {
         in.close();
         out.close();
 
-/*
+
         String s="Code.java";
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        int result = compiler.run(System.in,System.out,System.err,s);
+        compiler.run(System.in,System.out,System.err,s);
         try{
-			Class code = Class.forName("Code");
-			Object t = code.newInstance();
-			Class noparams[] = {};
-			Method main = code.getDeclaredMethod("run", noparams);
-			main.invoke(t, null);
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
+            //load the Template at runtime
+            Class template = Class.forName("Code");
+            Object t = template.newInstance();
 
-        File file = new File("Code.java");
-        file.delete();
-        file = new File("Code.class");
-        file.delete();
-    */
+            //call the run method
+            Class noparams[] = {};
+            Method run = template.getDeclaredMethod("run", noparams);
+            run.invoke(t, null);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+  //      File file = new File("Code.java");
+    //    file.delete();
+      //  file = new File("Code.class");
+        //file.delete();
+
     }
 }
