@@ -1,0 +1,12 @@
+int pow(int x, int y){
+	return x * y;
+}
+
+void main(){
+	int x;
+	sysout(10);
+	sysout(q);
+	preal p;
+	                p = 0.3;
+	boolean rv : p true $ 1-p false;
+}

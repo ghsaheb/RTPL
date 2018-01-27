@@ -89,7 +89,7 @@ public class GUI {
     private Vector<String> getEditorFonts() {
         String [] availableFonts =
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-        Vector<String> returnList = new Vector<>();
+        Vector<String> returnList = new Vector<String>();
         for (String font : availableFonts) {
             if (FONT_LIST.contains(font)) {
                 returnList.add(font);
