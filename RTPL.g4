@@ -23,10 +23,17 @@ funcdef
 vardef
     : t=type vars+=ID ('=' expr)? (',' vars+=ID ('=' expr)?)*
     { for (Token var:$vars) System.out.println("Variable " + var.getText() + " : " + $t.retType.getType()); }
+    | 'preal' pvar=ID {System.out.println("Variable " + $pvar.getText() + " : preal");}
+    | 'boolean' var=ID '=' expr ':' CONST_BOOL '$' expr ':' CONST_BOOL {System.out.println("Variable " + $var.getText() + " : random boolean");}
+    ;
+annotationdef
+    : '@estimation' '=' num1=CONST_NUM ';' '@safety' '=' num2=CONST_NUM ';'
+    {
+        System.out.println("Annotation : safety = " + $num1.text + " , estimation = " + $num2.text);
+    }
     ;
 type returns [Type retType]
-    :
-    | 'string' '(' CONST_NUM ')' {$retType = Type.String;}
+    : 'string' '(' CONST_NUM ')' {$retType = Type.String;}
     | 'boolean' {$retType = Type.Boolean;}
     | 'int' {$retType = Type.Int;}
     | 'float' {$retType = Type.Float;}
@@ -41,7 +48,7 @@ statement
 other_stm
     : (vardef ';'
     | expr ';'
-    | while_stm
+    | (annotationdef)? while_stm
     | return_stm ';'
     | break_stm ';'
     | block)

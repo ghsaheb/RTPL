@@ -1,4 +1,4 @@
-// Generated from C:/Users/vrasa/IdeaProjects/RTPL\RTPL.g4 by ANTLR 4.5.3
+// Generated from /home/vahid/IdeaProjects/RTPL/RTPL.g4 by ANTLR 4.7
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -46,6 +46,18 @@ public class RTPLBaseListener implements RTPLListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVardef(RTPLParser.VardefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAnnotationdef(RTPLParser.AnnotationdefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAnnotationdef(RTPLParser.AnnotationdefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

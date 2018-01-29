@@ -1,14 +1,17 @@
-int pow(int x, int y){
+int mult(int x, int y){
 	return x * y;
 }
 
-void main(){
+int main(){
 	int x;
 	sysout(10);
 	preal p;
-	                p = 0.3;
-	boolean rv : p true $ 1-p false;
-    @safety = 100;
+    p = 0.3;
+	boolean rv = p : true $ 1-p : false;
+ //   sysout(System.currentTimeMillis());
+    sysout("HIIIIIIIII");
+	@estimation = 6;
+    @safety = 10;
     while (true){
         int ghazal;
         ghazal = 20;

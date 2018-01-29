@@ -1,4 +1,4 @@
-// Generated from C:/Users/vrasa/IdeaProjects/RTPL\RTPL.g4 by ANTLR 4.5.3
+// Generated from /home/vahid/IdeaProjects/RTPL/RTPL.g4 by ANTLR 4.7
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -36,6 +36,16 @@ public interface RTPLListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVardef(RTPLParser.VardefContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RTPLParser#annotationdef}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnnotationdef(RTPLParser.AnnotationdefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RTPLParser#annotationdef}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnnotationdef(RTPLParser.AnnotationdefContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link RTPLParser#type}.
 	 * @param ctx the parse tree

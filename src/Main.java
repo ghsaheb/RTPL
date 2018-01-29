@@ -6,6 +6,10 @@ import java.io.*;
 import javax.tools.*;
 import java.lang.reflect.Method;
 import com.udojava.evalex.Expression;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.uncommons.maths.random.Probability;
 import java.io.*;
 import java.math.BigDecimal;
@@ -13,10 +17,22 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        //    new GUI();
+        String rtplFile = "in.rtpl";
+
+        // Static Evaluation
+        System.out.println(".:STATIC EVALUATION:.");
+        CharStream input = new ANTLRFileStream(rtplFile);
+        RTPLLexer lexer=new RTPLLexer(input);
+        CommonTokenStream ts=new CommonTokenStream(lexer);
+        RTPLParser parser=new RTPLParser(ts);
+        RTPLParser.ProgramContext program_ctx;
+        program_ctx = parser.program();
+//            new GUI();
+
+        // Dynamic Evaluation
+        System.out.println("\n.:DYNAMIC EVALUATION:.");
         BigDecimal result = null;
         Map variables = new HashMap();
-        String rtplFile = "in.rtpl";
         BufferedWriter out = new BufferedWriter(new FileWriter("Code.java", false));
         BufferedReader in = new BufferedReader(new FileReader(rtplFile));
         String str;
@@ -36,19 +52,19 @@ public class Main {
                 hasCode = true;
                 continue;
             } else if(str.contains("preal")){
-                System.out.println("Static Evaluation");
-                System.out.println("\t" + "preal:" + tokens[2]);
+    //            System.out.println("Static Evaluation");
+     //           System.out.println("\t" + "preal:" + tokens[2]);
                 variables.put(tokens[2],0);
-                System.out.println("Dynamic Evaluation");
+     //           System.out.println("Dynamic Evaluation");
                 for(Object key: variables.keySet())
                     System.out.println("\t" + key + " = " + variables.get(key));
                 continue;
             } else if (str.contains("boolean") && str.contains("$")){
-                System.out.println("Static Evaluation");
+     //           System.out.println("Static Evaluation");
                 System.out.println("\t"+"Generating Random Value");
                 System.out.println("\t\t" + "boolean: " + tokens[2]);
-                System.out.println("\t\t" + tokens[4] + ": "+ variables.get(tokens[4]));
-                BigDecimal temp = (BigDecimal)variables.get(tokens[4]);
+                System.out.println("\t\t" + tokens[3] + " : "+ variables.get(tokens[3]));
+                BigDecimal temp = (BigDecimal)variables.get(tokens[3]);
                 x = new Probability(temp.doubleValue());
                 double z = Math.random();
                 if (z < x.doubleValue()) {
@@ -59,7 +75,7 @@ public class Main {
                     System.out.println("\t\t" +"false");
                     str = "boolean " + tokens[2] + " = " + "false;";
                 }
-                System.out.println("\t\t" +"random value:"+z);
+                System.out.println("\t\t" +"random value: "+z);
             } else if(str.contains("=")){
                 if(variables.containsKey(tokens[1])) {
                     System.out.println("Dynamic Evaluation");
@@ -69,11 +85,11 @@ public class Main {
                     //System.out.println(tokens[1]+"="+((BigDecimal)variables.get(tokens[1])).doubleValue());
                     continue;
                 }if(str.contains("@estimation")){
-                    System.out.println("\t" + "Annotation: " + tokens[1]);
+  //                  System.out.println("\t" + "Annotation: " + tokens[1]);
                     continue;
                 }
                 if(str.contains("@safety")){
-                    System.out.println("\t" + "Annotation: " + tokens[2]);
+ //                   System.out.println("\t" + "Annotation: " + tokens[2]);
                     safetyFlag = true;
                     timeInMillis = Integer.parseInt(tokens[2]);
                     continue;
@@ -83,7 +99,7 @@ public class Main {
                 safetyFlag = false;
                 out.write("\nlong safetyTimer = System.currentTimeMillis();");
                 out.write("\n" + str);
-                out.write("\nif (System.currentTimeMillis() + " + timeInMillis + " > safetyTimer){System.out.println(\"Safety time reached\"); break;} ");
+                out.write("\nif (System.currentTimeMillis() > " + timeInMillis + " + safetyTimer){System.out.println(\"Safety time reached\"); break;} ");
                 continue;
             }
             str=str.replace("string","String");
