@@ -39,6 +39,7 @@ public class Main {
         out.write("import java.util.*;\npublic class Code  {\n");
         boolean hasCode = false;
         int timeInMillis = 0;
+        int i = 0;
         boolean safetyFlag = false;
         while ((str = in.readLine()) != null){
             Probability x;
@@ -97,9 +98,10 @@ public class Main {
             }
             else if (str.contains("while") && safetyFlag){
                 safetyFlag = false;
-                out.write("\nlong safetyTimer = System.currentTimeMillis();");
+                out.write("\nlong safetyTimer" + i + " = System.currentTimeMillis();");
                 out.write("\n" + str);
-                out.write("\nif (System.currentTimeMillis() > " + timeInMillis + " + safetyTimer){System.out.println(\"Safety time reached\"); break;} ");
+                out.write("\nif (System.currentTimeMillis() > " + timeInMillis + " + safetyTimer" + i +"){System.out.println(\"Safety time reached\"); break;} ");
+                i = i + 1;
                 continue;
             }
             str=str.replace("string","String");

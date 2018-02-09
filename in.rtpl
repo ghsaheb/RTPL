@@ -8,14 +8,34 @@ int main(){
 	preal p;
     p = 0.3;
 	boolean rv = p : true $ 1-p : false;
- //   sysout(System.currentTimeMillis());
-    sysout("HIIIIIIIII");
+    sysout("Before loop");
 	@estimation = 6;
     @safety = 10;
     while (true){
-        int ghazal;
-        ghazal = 20;
-        sysout("ghazaaaal");
+        sysout("Inside loop");
     }
+    if (rv == true){
+        sysout("True was taken");
+    }
+    else {
+        sysout("False was taken");
+    }
+
+    preal q;
+    q = 0.9;
+    boolean rv2 = q : true $ 1-p : false;
+    if (rv2 == true){
+        sysout("Second true");
+    }
+    else {
+        sysout("Second false");
+    }
+
+    @estimation = 5;
+    @safety = 10;
+    while (true){
+            sysout("Inside second loop");
+    }
+    sysout("End of code");
 }
 
